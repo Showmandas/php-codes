@@ -14,67 +14,59 @@ session_start();
 </head>
 <body>
 <?php
-
 include 'dbconn.php';
+
 if(isset($_POST['signup'])){
-
     $fullname=mysqli_real_escape_string($conn,$_POST['fullname']);
-    $email=mysqli_real_escape_string($conn,$_POST['email']);
-    $password=mysqli_real_escape_string($conn,$_POST['pwd']);
-    $cpassword=mysqli_real_escape_string($conn,$_POST['cpwd']);
+    $email= mysqli_real_escape_string($conn,$_POST['email']);
+    $pwd= mysqli_real_escape_string($conn,$_POST['pwd']);
+    $cpwd= mysqli_real_escape_string($conn,$_POST['cpwd']);
 
-    $pass=password_hash($password,PASSWORD_BCRYPT);//encrypt password
-    $cpass=password_hash($cpassword,PASSWORD_BCRYPT);
+    $pass=password_hash($pwd,PASSWORD_BCRYPT);
+    $cpass=password_hash($cpwd,PASSWORD_BCRYPT);
 
-    $emailquery = "select * from signtable where email=''$email";
-    $query = mysqli_query($conn,$emailquery);
-    $emailcount=mysqli_num_rows($query);
-
-    if($emailcount > 0){
-        // echo "email already exist";
-        
-              ?>
-              <script>
-              alert('email already exist');
-              </script>
-              <?php
-        
-          
+    $emailQuery=" select * from signtable where email='$email'";
+    $query=mysqli_query($conn,$emailQuery);
+    $emailCnt=mysqli_num_rows($query);
+    if($emailCnt>0){
+        ?>
+        <script>
+       alert('email already exist');
+       </script>
+      
+       <?php
+   
     }else{
-        if($pass === $cpass){
-            $insertquery="insert into signtable(fullname,email,password,cpassword) values('$fullname','$email','$pass','$cpass')";
-            $q=mysqli_query($conn,$insertquery); 
-            if($q){
-                ?>
-                <script>
-                alert('Data saved successfully');
-                </script>
-                
-                <?php
-                header('location:signup.php');
-              }else{
-                  ?>
-                  <script>
-                  alert('something wrong');
-                  </script>
-                  <?php
-              }
-              
-        }else{
-            // echo "password doesnot match";
+        if($pwd===$cpwd){
+          $insertQuery=" insert into signtable(fullname,email,password,cpassword) values('$fullname','$email','$pass','$cpass')";
+          $inq=mysqli_query($conn,$insertQuery);
+          if($inq){
             ?>
             <script>
-            alert('password does not match');
+            alert('inserted succesfully');
             </script>
             <?php
+        }else{
+            ?>
+             <script>
+            alert('something wrong');
+            </script>
+           
+            <?php
+        }
         
+        }else{
+            ?>
+            <script>
+           alert('password does not match');
+           </script>
+          
+           <?php
+       
         }
     }
 }
-
 ?>
-
-
 <div class="container m-auto">
 
 <div class="row py-5">
