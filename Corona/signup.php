@@ -24,24 +24,7 @@ session_start();
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#aboutid">about</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#symptomid">symptoms</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#preventid">prevention</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#contactid">contact us</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#contactid">Ask Q/A</a>
-      </li>
-      
+      </li>      
     </ul>
   </div>
 </nav>
@@ -53,8 +36,10 @@ if(isset($_POST['sign'])){
   $email=mysqli_real_escape_string($con,$_POST['email']);
   $password=mysqli_real_escape_string($con,$_POST['password']);
   $cpassword=mysqli_real_escape_string($con,$_POST['cpassword']);
+
   $pass=password_hash($password,PASSWORD_BCRYPT);
   $cpass=password_hash($cpassword,PASSWORD_BCRYPT);
+  $token=bin2hex(random_bytes(15));
 
   $emailq="select * from signup where email='$email'";
   $q=mysqli_query($con,$emailq);
@@ -70,11 +55,12 @@ if(isset($_POST['sign'])){
       $insert="insert into signup(username,email,password,cpassword) values('$username','$email','$pass','$cpass')";
       $insq=mysqli_query($con,$insert);
       ?>
-      <script>
-      alert('Registration successful..Now kindly log in');
-      location.replace('login.php');
-      </script>
-  <?php
+       <script>
+               alert('Registration successful');
+          location.replace("login.php");
+        
+       </script>
+      <?php
     }else{
        ?>
        <script>
@@ -84,6 +70,8 @@ if(isset($_POST['sign'])){
     }
   }
 }
+
+
 
 ?>
 <div class="row">

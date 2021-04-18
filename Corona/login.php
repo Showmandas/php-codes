@@ -27,22 +27,6 @@ session_start();
         <a class="nav-link" href="#aboutid">about</a>
       </li>
       
-      <li class="nav-item">
-        <a class="nav-link" href="#symptomid">symptoms</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#preventid">prevention</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#contactid">contact us</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="#contactid">Ask Q/A</a>
-      </li>
-      
     </ul>
   </div>
 </nav>
@@ -113,6 +97,7 @@ if(isset($_POST['login'])){
 <div class="log mt-4">
 <p> Don't you have an account?<a href="signup.php">Sign up here</a></p>
 </div><!--/log-->
+
 </div><!--/jumbotron-->
 </div><!--/col-12-->
 
@@ -138,7 +123,3 @@ if(isset($_POST['login'])){
 </body>
 </html>
 
-<?php
-include 'dbcon.php';
-
-?>
